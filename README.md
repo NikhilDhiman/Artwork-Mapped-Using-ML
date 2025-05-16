@@ -1,45 +1,110 @@
-# Artwork-Mapped-Using-ML
-Artwork Mapped Using ML
+# 🎨 Artwork Mapped Using ML
 
-An interactive 3D landscape of thousands of artworks, visualized using Machine Learning and dimensionality reduction. This project organizes artworks based solely on visual similarity—no metadata, artist names, or titles involved.
+This project visualizes thousands of artwork images in a 3D space based on their **visual similarity**, using **deep learning** for feature extraction and **unsupervised learning** for dimensionality reduction and clustering.
 
-## Project Summary
-This project explores visual similarity among thousands of artworks by mapping them into a 3D space using deep learning and unsupervised learning techniques. The result is a navigable, web-based visualization where users can explore artworks from any perspective.
+Explore art visually and intuitively without relying on text or metadata.
 
-## Key Features
-Visual Similarity Mapping: Artworks that look similar are placed closer together in 3D space.
+Live Demo: [https://3d-umap-cs5660.vercel.app/](https://3d-umap-cs5660.vercel.app/)
 
-Image-Only Analysis: No metadata or text—just raw pixel data.
+---
 
-Deep Learning Embeddings: Pre-trained models (like InceptionV3 or ResNet50) are used for image feature extraction.
+## 📁 Dataset
 
-Dimensionality Reduction: UMAP reduces the high-dimensional embeddings into a 3D space.
+[WikiArt 120K Dataset on Kaggle](https://www.kaggle.com/datasets/antoinegruson/-wikiart-all-images-120k-link)
 
-Web Visualization: A Three.js interface allows exploration of the 3D artwork landscape.
+---
 
-##  How It Works
-#### Image Preprocessing
+## ⚙️ Software Requirements
 
-Recursively loads images from a specified directory, ignoring non-image files and corrupt files (logged).
+- Python 3.8+
+- pip
+- GPU (Recommended for faster feature extraction)
 
-#### Feature Extraction
+### Install Dependencies
 
-Uses TensorFlow’s ResNet50 (pre-trained on ImageNet) without the top layer.
+Create a virtual environment and install required libraries:
 
-Outputs 2048-dimensional embeddings for each image.
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-Images are resized to 224x224 and preprocessed using preprocess_input().
+**requirements.txt**:
+```txt
+tensorflow
+numpy
+pandas
+matplotlib
+plotly
+opencv-python
+scikit-learn
+tqdm
+umap-learn
+h5py
+Pillow
+```
 
-#### Batch Processing & Storage
+---
 
-Embeddings are generated in batches (BATCH_SIZE = 32) and saved in HDF5 format.
+## 🚪 Environment Setup
 
-Corresponding image filenames are saved in a .npy file.
+1. **Download Dataset:** Extract WikiArt images to:
 
-#### Dimensionality Reduction
+   ```bash
+   /home/<your_username>/CS5660/data/wikiart_images
+   ```
 
-You can apply UMAP separately to the HDF5 feature data to reduce it to 3D for visualization.
+2. **Update Paths in Notebook:**
 
+   Update the following variables in the notebook if needed:
+   ```python
+   IMAGES_DIR = "/your/path/wikiart_images"
+   PROJ_DIR = "/your/project/folder"
+   ```
 
+3. **Create Directory for Features:**
+   ```bash
+   mkdir -p extracted_features_batched_artwork
+   ```
+
+---
+
+## 🚀 How to Run
+
+### Via Jupyter Notebook
+
+1. Launch Jupyter:
+   ```bash
+   jupyter notebook
+   ```
+
+2. Open `Artwork Mapped Using ML.ipynb`
+
+3. Run cells in order:
+
+   - Data Cleaning: Duplicate and corrupt image filtering
+   - Feature Extraction: Using ResNet50
+   - Dimensionality Reduction: PCA + UMAP
+   - Clustering: HDBSCAN
+   - Save Embeddings: For visualization
+
+---
+
+## 🔹 Visualization
+
+Final output (3D coordinates + image references) is used by a [Three.js](https://threejs.org/) web app:
+
+Live Interface: [https://3d-umap-cs5660.vercel.app/](https://3d-umap-cs5660.vercel.app/)
+
+Update `data.json` in the web repo with your new outputs to visualize custom embeddings.
+
+---
+
+## 👥 Authors
+
+- Nikhil Dhiman  
+- Yamini Mandadi  
+- Akash Saraf
 
 
